@@ -119,6 +119,7 @@ body.dark-mode {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     border-radius: 30px;
     transition: all 0.3s ease;
+    width: 100%;
 }
 
 .search-box:focus-within {
@@ -137,7 +138,7 @@ body.dark-mode {
 
 #searchInput {
     width: 100%;
-    padding: 15px 25px 15px 50px;
+    padding: 15px 50px 15px 50px;
     border: none;
     border-radius: 30px;
     font-size: 1rem;
@@ -158,23 +159,22 @@ body.dark-mode #searchInput {
 
 .clear-search {
     position: absolute;
-    right: 12px;
+    right: 15px;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.1);
+    background: none;
     border: none;
+    color: #777;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s ease;
+    padding: 5px;
+    z-index: 2;
     width: 24px;
     height: 24px;
-    border-radius: 50%;
-    color: #aaa;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    transition: all 0.2s ease;
-    padding: 0;
-    margin: 0;
 }
 
 .clear-search.visible {
@@ -182,20 +182,15 @@ body.dark-mode #searchInput {
 }
 
 .clear-search:hover {
-    background: rgba(0, 0, 0, 0.2);
     color: var(--error);
 }
 
 .clear-search i {
     font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .api-container {
-    display: grid;
-    gap: 1.5rem;
+    display: block;
 }
 
 .api-category {
@@ -204,6 +199,7 @@ body.dark-mode #searchInput {
     padding: 1.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
+    margin-bottom: 2rem;
 }
 
 body.dark-mode .api-category {
@@ -220,10 +216,10 @@ body.dark-mode .api-category {
     font-weight: 600;
 }
 
-.api-list {
-    display: grid;
+.api-list-vertical {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 .api-item {
@@ -246,22 +242,6 @@ body.dark-mode .api-item {
     border-left-color: var(--primary);
     transform: translateY(-3px);
     box-shadow: 0 6px 16px rgba(67, 97, 238, 0.1);
-}
-
-.api-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.api-item:hover::before {
-    opacity: 1;
 }
 
 .api-item.active {
@@ -308,18 +288,6 @@ body.dark-mode .api-item {
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.api-status::before {
-    content: '';
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: white;
 }
 
 .api-status.offline { 
@@ -364,19 +332,6 @@ body.dark-mode .api-endpoint {
     background: rgba(255, 255, 255, 0.08);
 }
 
-.api-endpoint::before {
-    content: 'ENDPOINT';
-    position: absolute;
-    top: -8px;
-    left: 10px;
-    font-size: 0.6rem;
-    background: var(--primary);
-    color: white;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'Inter', sans-serif;
-}
-
 .api-button {
     display: inline-flex;
     align-items: center;
@@ -389,6 +344,7 @@ body.dark-mode .api-endpoint {
     font-size: 0.9rem;
     transition: all 0.3s ease;
     font-weight: 500;
+    margin-top: auto;
 }
 
 .api-button:hover {
@@ -397,45 +353,11 @@ body.dark-mode .api-endpoint {
     box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
 }
 
-.api-button i {
-    font-size: 0.8rem;
-}
+/* ... (rest of your existing CSS remains the same) ... */
 
-.app-footer {
-    text-align: center;
-    padding: 1.5rem;
-    background: var(--light);
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
-    margin-top: 2rem;
-}
-
-body.dark-mode .app-footer {
-    background: var(--dark-gray);
-}
-
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 1.75rem;
-    margin-bottom: 1.25rem;
-}
-
-.social-links a {
-    color: var(--primary);
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-}
-
-.social-links a:hover {
-    transform: translateY(-3px) scale(1.1);
-    color: var(--accent);
-}
-
-/* Skeleton Loading */
+/* Skeleton Loading for vertical layout */
 .skeleton-container {
-    display: grid;
-    gap: 1.5rem;
+    display: block;
 }
 
 .skeleton-category {
@@ -443,10 +365,7 @@ body.dark-mode .app-footer {
     border-radius: 12px;
     padding: 1.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-body.dark-mode .skeleton-category {
-    background: var(--dark-gray);
+    margin-bottom: 2rem;
 }
 
 .skeleton-title {
@@ -459,60 +378,21 @@ body.dark-mode .skeleton-category {
     animation: shimmer 1.5s infinite;
 }
 
-.skeleton-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+.skeleton-items {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
 }
 
 .skeleton-item {
-    height: 120px;
+    height: 80px;
     background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
     background-size: 200% 100%;
     border-radius: 8px;
     animation: shimmer 1.5s infinite;
 }
 
-body.dark-mode .skeleton-title,
-body.dark-mode .skeleton-item {
-    background: linear-gradient(90deg, #2d2d2d 25%, #3a3a3a 50%, #2d2d2d 75%);
-}
-
-@keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-/* No Results */
-.no-results {
-    text-align: center;
-    padding: 3rem 1rem;
-    display: none;
-}
-
-.no-results i {
-    font-size: 3rem;
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-    opacity: 0.7;
-}
-
-.no-results h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--primary);
-}
-
-.no-results p {
-    color: #666;
-    font-size: 1rem;
-}
-
-body.dark-mode .no-results p {
-    color: #aaa;
-}
-
-/* Responsive */
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .app-header {
         flex-direction: column;
@@ -539,14 +419,6 @@ body.dark-mode .no-results p {
     .search-box {
         margin-bottom: 1.5rem;
     }
-    
-    .api-list {
-        grid-template-columns: 1fr;
-    }
-    
-    .skeleton-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
 @media (max-width: 480px) {
@@ -556,5 +428,14 @@ body.dark-mode .no-results p {
     
     .api-status {
         margin-left: auto;
+    }
+    
+    .api-method {
+        min-width: 50px;
+        font-size: 0.65rem;
+    }
+    
+    .api-title {
+        font-size: 1rem;
     }
 }

@@ -180,7 +180,7 @@ const apiContainer = document.getElementById('api-categories');
 const loadingSkeleton = document.getElementById('loadingSkeleton');
 const noResults = document.getElementById('noResults');
 
-// Create API Item with details
+// Create API Item with details (vertical layout)
 function createApiItem(api) {
     const apiItem = document.createElement('div');
     apiItem.className = 'api-item';
@@ -232,23 +232,22 @@ function createApiItem(api) {
     apiItem.appendChild(apiHeader);
     apiItem.appendChild(apiDetails);
     
-    apiItem.addEventListener('click', (e) => {
-        if (!e.target.closest('.api-button')) {
-            const wasActive = apiItem.classList.contains('active');
-            document.querySelectorAll('.api-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            if (!wasActive) {
-                apiItem.classList.add('active');
-            }
-            e.stopPropagation();
+    apiHeader.addEventListener('click', () => {
+        const wasActive = apiItem.classList.contains('active');
+        
+        document.querySelectorAll('.api-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        if (!wasActive) {
+            apiItem.classList.add('active');
         }
     });
     
     return apiItem;
 }
 
-// Create Skeleton Loading
+// Create Skeleton Loading (vertical layout)
 function createSkeletonLoading() {
     loadingSkeleton.innerHTML = '';
     
@@ -259,22 +258,22 @@ function createSkeletonLoading() {
         const title = document.createElement('div');
         title.className = 'skeleton-title';
         
-        const grid = document.createElement('div');
-        grid.className = 'skeleton-grid';
+        const itemsContainer = document.createElement('div');
+        itemsContainer.className = 'skeleton-items';
         
         for (let j = 0; j < 4; j++) {
             const item = document.createElement('div');
             item.className = 'skeleton-item';
-            grid.appendChild(item);
+            itemsContainer.appendChild(item);
         }
         
         category.appendChild(title);
-        category.appendChild(grid);
+        category.appendChild(itemsContainer);
         loadingSkeleton.appendChild(category);
     }
 }
 
-// Load API Data into the page
+// Load API Data into the page (vertical layout)
 function loadApiData() {
     apiContainer.innerHTML = '';
     noResults.style.display = 'none';
@@ -288,7 +287,7 @@ function loadApiData() {
         categoryElement.appendChild(categoryTitle);
         
         const apiList = document.createElement('div');
-        apiList.className = 'api-list';
+        apiList.className = 'api-list-vertical';
         
         apis.forEach(api => {
             apiList.appendChild(createApiItem(api));
@@ -322,7 +321,7 @@ function setupThemeToggle() {
     });
 }
 
-// Search Functionality
+// Search Functionality (vertical layout)
 function setupSearch() {
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase().trim();
@@ -358,7 +357,7 @@ function setupSearch() {
             apiContainer.style.display = 'none';
         } else {
             noResults.style.display = 'none';
-            apiContainer.style.display = 'grid';
+            apiContainer.style.display = 'block';
         }
     });
     
@@ -369,26 +368,16 @@ function setupSearch() {
             item.style.display = 'block';
         });
         noResults.style.display = 'none';
-        apiContainer.style.display = 'grid';
+        apiContainer.style.display = 'block';
         searchInput.focus();
     });
     
-    // Close all API items when search input is focused
     searchInput.addEventListener('focus', () => {
         document.querySelectorAll('.api-item').forEach(item => {
             item.classList.remove('active');
         });
     });
 }
-
-// Close API items when clicking outside
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.api-item')) {
-        document.querySelectorAll('.api-item').forEach(item => {
-            item.classList.remove('active');
-        });
-    }
-});
 
 // Initialize the app
 function initApp() {
