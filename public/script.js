@@ -172,6 +172,14 @@ const apiData = {
     ]      
 };
 
+// DOM Elements
+const themeToggle = document.getElementById('themeToggle');
+const searchInput = document.getElementById('searchInput');
+const clearSearch = document.getElementById('clearSearch');
+const apiContainer = document.getElementById('api-categories');
+const loadingSkeleton = document.getElementById('loadingSkeleton');
+const noResults = document.getElementById('noResults');
+
 // Create API Item with details
 function createApiItem(api) {
     const apiItem = document.createElement('div');
@@ -205,13 +213,17 @@ function createApiItem(api) {
     
     const endpoint = document.createElement('div');
     endpoint.className = 'api-endpoint';
-    endpoint.textContent = `Endpoint: ${api.endpoint}`;
+    endpoint.textContent = api.endpoint;
     
     const button = document.createElement('a');
     button.className = 'api-button';
-    button.textContent = 'Akses Endpoint';
+    button.innerHTML = '<i class="fas fa-external-link-alt"></i> Akses Endpoint';
     button.href = api.endpoint;
     button.target = '_blank';
+    
+    button.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
     
     apiDetails.appendChild(description);
     apiDetails.appendChild(endpoint);
@@ -220,48 +232,52 @@ function createApiItem(api) {
     apiItem.appendChild(apiHeader);
     apiItem.appendChild(apiDetails);
     
-    // Click event to toggle details
     apiItem.addEventListener('click', (e) => {
-        // Don't toggle if clicking on the access button
-        if (!e.target.classList.contains('api-button')) {
+        if (!e.target.closest('.api-button')) {
+            const wasActive = apiItem.classList.contains('active');
             document.querySelectorAll('.api-item').forEach(item => {
-                if (item !== apiItem) {
-                    item.classList.remove('active');
-                }
+                item.classList.remove('active');
             });
-            apiItem.classList.toggle('active');
+            if (!wasActive) {
+                apiItem.classList.add('active');
+            }
+            e.stopPropagation();
         }
     });
     
     return apiItem;
 }
 
-// Theme Toggle
-function setupThemeToggle() {
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-    }
+// Create Skeleton Loading
+function createSkeletonLoading() {
+    loadingSkeleton.innerHTML = '';
     
-    // Toggle theme
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
+    for (let i = 0; i < 3; i++) {
+        const category = document.createElement('div');
+        category.className = 'skeleton-category';
         
-        if (document.body.classList.contains('dark-mode')) {
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            localStorage.setItem('theme', 'dark');
-        } else {
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            localStorage.setItem('theme', 'light');
+        const title = document.createElement('div');
+        title.className = 'skeleton-title';
+        
+        const grid = document.createElement('div');
+        grid.className = 'skeleton-grid';
+        
+        for (let j = 0; j < 4; j++) {
+            const item = document.createElement('div');
+            item.className = 'skeleton-item';
+            grid.appendChild(item);
         }
-    });
+        
+        category.appendChild(title);
+        category.appendChild(grid);
+        loadingSkeleton.appendChild(category);
+    }
 }
-//initapp
-function initApp() {
-    // Load API data into the page
-    const apiContainer = document.getElementById('api-categories');
+
+// Load API Data into the page
+function loadApiData() {
+    apiContainer.innerHTML = '';
+    noResults.style.display = 'none';
     
     for (const [category, apis] of Object.entries(apiData)) {
         const categoryElement = document.createElement('div');
@@ -281,27 +297,110 @@ function initApp() {
         categoryElement.appendChild(apiList);
         apiContainer.appendChild(categoryElement);
     }
-    
-    // Setup theme toggle
-    const themeToggle = document.querySelector('.theme-toggle');
-    setupThemeToggle();
-    
-    // Setup search functionality
-    const searchInput = document.getElementById('searchInput');
-    setupSearch();
 }
+
+// Theme Toggle
+function setupThemeToggle() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        
+        if (document.body.classList.contains('dark-mode')) {
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', 'light');
+        }
+    });
+}
+
 // Search Functionality
 function setupSearch() {
     searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
+        const searchTerm = e.target.value.toLowerCase().trim();
+        
+        if (searchTerm.length > 0) {
+            clearSearch.classList.add('visible');
+        } else {
+            clearSearch.classList.remove('visible');
+        }
+        
+        let hasResults = false;
         
         document.querySelectorAll('.api-item').forEach(item => {
             const title = item.querySelector('.api-title').textContent.toLowerCase();
-            const isVisible = title.includes(searchTerm);
+            const description = item.querySelector('.api-description').textContent.toLowerCase();
+            const isVisible = title.includes(searchTerm) || description.includes(searchTerm);
             item.style.display = isVisible ? 'block' : 'none';
+            
+            if (isVisible) {
+                hasResults = true;
+                item.closest('.api-category').style.display = 'block';
+            } else {
+                const category = item.closest('.api-category');
+                const visibleItems = category.querySelectorAll('.api-item[style="display: block"]');
+                if (visibleItems.length === 0) {
+                    category.style.display = 'none';
+                }
+            }
+        });
+        
+        if (!hasResults && searchTerm.length > 0) {
+            noResults.style.display = 'block';
+            apiContainer.style.display = 'none';
+        } else {
+            noResults.style.display = 'none';
+            apiContainer.style.display = 'grid';
+        }
+    });
+    
+    clearSearch.addEventListener('click', () => {
+        searchInput.value = '';
+        clearSearch.classList.remove('visible');
+        document.querySelectorAll('.api-item, .api-category').forEach(item => {
+            item.style.display = 'block';
+        });
+        noResults.style.display = 'none';
+        apiContainer.style.display = 'grid';
+        searchInput.focus();
+    });
+    
+    // Close all API items when search input is focused
+    searchInput.addEventListener('focus', () => {
+        document.querySelectorAll('.api-item').forEach(item => {
+            item.classList.remove('active');
         });
     });
 }
 
-// Initialize when DOM is loaded
+// Close API items when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.api-item')) {
+        document.querySelectorAll('.api-item').forEach(item => {
+            item.classList.remove('active');
+        });
+    }
+});
+
+// Initialize the app
+function initApp() {
+    createSkeletonLoading();
+    
+    setTimeout(() => {
+        loadingSkeleton.style.display = 'none';
+        loadApiData();
+    }, 800);
+    
+    setupThemeToggle();
+    setupSearch();
+}
+
 document.addEventListener('DOMContentLoaded', initApp);

@@ -18,7 +18,7 @@
                     <p>Fast & simple API Services</p>
                 </div>
             </div>
-            <button class="theme-toggle" aria-label="Toggle theme">
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
                 <i class="fas fa-moon"></i>
             </button>
         </header>
@@ -26,17 +26,30 @@
         <main class="main-content">
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search APIs...">
+                <input type="text" id="searchInput" placeholder="Search APIs by title or description...">
+                <button id="clearSearch" class="clear-search" aria-label="Clear search">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div id="loadingSkeleton" class="skeleton-container">
+                <!-- Skeleton loading will appear here -->
             </div>
 
             <div id="api-categories" class="api-container"></div>
+
+            <div id="noResults" class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>No APIs found</h3>
+                <p>Try a different search term</p>
+            </div>
         </main>
 
         <footer class="app-footer">
             <div class="social-links">
-                <a href="https://github.com/DANNN9999" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://wa.me/+6283146276723" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://t.me/DANNN_0102" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="https://github.com/DANNN9999" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://wa.me/+6283146276723" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://t.me/DANNN_0102" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
             </div>
             <p>© 2025 DanX API Services</p>
         </footer>
@@ -44,4 +57,4 @@
 
     <script src="script.js"></script>
 </body>
-  </html>
+</html>
