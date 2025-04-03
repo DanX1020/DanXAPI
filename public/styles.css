@@ -58,6 +58,35 @@ body.dark-mode {
     gap: 1.5rem;
 }
 
+/* No Results */
+.no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    display: none;
+}
+
+.no-results i {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+}
+
+.no-results h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+}
+
+.no-results p {
+    color: #666;
+    font-size: 1rem;
+}
+
+body.dark-mode .no-results p {
+    color: #aaa;
+}
+
 .app-footer {
     text-align: center;
     padding: 2.5rem 1.5rem;
