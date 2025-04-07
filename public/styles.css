@@ -510,7 +510,7 @@ body.dark-mode .api-endpoint {
     box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
 }
 
-/* ... (rest of your existing CSS remains the same) ... */
+
 
 /* Skeleton Loading for vertical layout */
 .skeleton-container {
@@ -549,70 +549,112 @@ body.dark-mode .api-endpoint {
     animation: shimmer 1.5s infinite;
 }
 
-/* API Key Checker Styles */
+/* API Key Check Section Styling */
 .api-key-checker {
     margin-top: 40px;
-    padding: 20px;
+    padding: 25px;
     background: var(--card-bg);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.api-key-checker h2 {
-    margin-bottom: 15px;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.key-check-input {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-#apiKeyInput {
-    flex: 1;
-    padding: 12px 15px;
+    border-radius: 12px;
     border: 1px solid var(--border-color);
-    border-radius: 5px;
-    background: var(--input-bg);
-    color: var(--text-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* Improved Button Styles */
 .check-key-btn {
-    padding: 12px 20px;
-    background: var(--primary-color);
-    color: white;
+    padding: 12px 24px;
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    color: white !important;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+    font-size: 0.95rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.check-key-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #7c3aed, #4f46e5); /* Reversed gradient */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
 }
 
 .check-key-btn:hover {
-    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
 }
 
+.check-key-btn:hover::before {
+    opacity: 1;
+}
+
+.check-key-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(79, 70, 229, 0.4);
+}
+
+.check-key-btn i {
+    font-size: 1.1em;
+}
+
+/* Input field styling for consistency */
+#apiKeyInput {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+}
+
+#apiKeyInput:focus {
+    border-color: #4f46e5;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Key check result styling */
 .key-check-result {
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
     font-weight: 500;
+    display: none; /* Hidden by default */
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .key-check-result.valid {
-    background: rgba(40, 167, 69, 0.2);
-    color: #28a745;
+    background: rgba(74, 222, 128, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    display: block;
 }
 
 .key-check-result.invalid {
-    background: rgba(220, 53, 69, 0.2);
-    color: #dc3545;
+    background: rgba(252, 165, 165, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    display: block;
 }
 
 /* Responsive adjustments */
