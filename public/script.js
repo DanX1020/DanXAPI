@@ -298,6 +298,37 @@ function loadApiData() {
     }
 }
 
+// API Key Checker Functionality
+document.getElementById('checkKeyBtn').addEventListener('click', async function() {
+    const apiKey = document.getElementById('apiKeyInput').value.trim();
+    const resultDiv = document.getElementById('keyCheckResult');
+    
+    if (!apiKey) {
+        resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter an API key';
+        resultDiv.className = 'key-check-result invalid';
+        return;
+    }
+
+    try {
+        // You'll need to create an endpoint in your backend to check API keys
+        const response = await fetch(`/api/check-key?apikey=${encodeURIComponent(apiKey)}`);
+        const data = await response.json();
+        
+        if (data.valid) {
+            resultDiv.innerHTML = `<i class="fas fa-check-circle"></i> Key terdaftar atas nama: ${data.email}<br>
+                                  Limit: ${data.limit} | Digunakan: ${data.usage} | Sisa: ${data.remaining}`;
+            resultDiv.className = 'key-check-result valid';
+        } else {
+            resultDiv.innerHTML = '<i class="fas fa-times-circle"></i> Key tidak terdaftar';
+            resultDiv.className = 'key-check-result invalid';
+        }
+    } catch (error) {
+        resultDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error checking key';
+        resultDiv.className = 'key-check-result invalid';
+        console.error('Error checking API key:', error);
+    }
+});
+
 // Theme Toggle
 function setupThemeToggle() {
     const savedTheme = localStorage.getItem('theme');

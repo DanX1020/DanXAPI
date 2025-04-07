@@ -549,6 +549,72 @@ body.dark-mode .api-endpoint {
     animation: shimmer 1.5s infinite;
 }
 
+/* API Key Checker Styles */
+.api-key-checker {
+    margin-top: 40px;
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.api-key-checker h2 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.key-check-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#apiKeyInput {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background: var(--input-bg);
+    color: var(--text-color);
+}
+
+.check-key-btn {
+    padding: 12px 20px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.check-key-btn:hover {
+    background: var(--primary-hover);
+}
+
+.key-check-result {
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.key-check-result.valid {
+    background: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+}
+
+.key-check-result.invalid {
+    background: rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .app-header {
