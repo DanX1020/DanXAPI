@@ -6,35 +6,35 @@ const apiData = {
             title: "YouTube Downloader",
             status: "online",
             description: "API untuk mendownload video atau shorts dari YouTube.",
-            endpoint: "/api/ytdl?url=&format="
+            endpoint: "/api/ytdl?url=&format=&apikey="
         },
         {
             method: "GET",
             title: "Twitter Downloader",
             status: "online",
             description: "API untuk mendownload video atau gambar dari Twitter.",
-            endpoint: "/api/twitterdl?url="
+            endpoint: "/api/twitterdl?url=&apikey="
         },
         {
             method: "GET",
             title: "Instagram Downloader",
             status: "online",
             description: "API untuk mendownload video atau gambar dari Instagram.",
-            endpoint: "/api/igdl?url="
+            endpoint: "/api/igdl?url=&apikey="
         },
         {
             method: "GET",
             title: "Facebook Downloader",
             status: "online",
             description: "API untuk mendownload video dari Facebook.",
-            endpoint: "/api/fbdl?url="
+            endpoint: "/api/fbdl?url=&apikey="
         },
         {
             method: "GET",
             title: "TikTok Downloader",
             status: "online",
             description: "API untuk mendownload video dari TikTok.",
-            endpoint: "/api/ttdl?url="
+            endpoint: "/api/ttdl?url=&apikey="
         }
     ],
     "Anime": [
@@ -43,7 +43,7 @@ const apiData = {
             title: "Anime Terbaru",
             status: "online",
             description: "API untuk mendapatkan daftar anime terbaru yang dirilis.",
-             endpoint: "/api/anime-terbaru"
+             endpoint: "/api/anime-terbaru?apikey="
         }
     ],
     "Search": [
@@ -52,28 +52,28 @@ const apiData = {
             title: "GitHub Stalk",
             status: "online",
             description: "API untuk melihat profil GitHub pengguna.",
-            endpoint: "/api/githubstalk?username="
+            endpoint: "/api/githubstalk?username=&apikey="
         },
         {
             method: "GET",
             title: "Search Groups",
             status: "online",
             description: "API untuk mencari grup WhatsApp berdasarkan kata kunci.",
-            endpoint: "/api/searchgroups?q="
+            endpoint: "/api/searchgroups?q=&apikey="
         },
         {
             method: "GET",
             title: "TikTok Search",
             status: "online",
             description: "API untuk mencari video dari TikTok berdasarkan query.",
-            endpoint: "/api/ttsearch?q="
+            endpoint: "/api/ttsearch?q=&apikey="
         },
         {
             method: "GET",
             title: "YouTube Search",
             status: "online",
             description: "API untuk mencari video dari YouTube berdasarkan kata kunci atau query.",
-            endpoint: "/api/ytsearch?q="
+            endpoint: "/api/ytsearch?q=&apikey="
         }    
     ],
     "AI": [
@@ -82,28 +82,28 @@ const apiData = {
             title: "LLaMA 3.3 70B Versatile",
             status: "online",
             description: "API untuk mengakses model LLaMA 3.3 70B yang serbaguna.",
-            endpoint: "/api/llama-3.3-70b-versatile?content="
+            endpoint: "/api/llama-3.3-70b-versatile?content=&apikey="
         },
         {
             method: "GET",
             title: "Deepseek AI 70B",
             status: "online",
             description: "API untuk mengakses model Deepseek 70B yang serbaguna.",
-            endpoint: "/api/deepseek-70b?content="
+            endpoint: "/api/deepseek-70b?content=&apikey="
         },
         {
             method: "GET",
             title: "Qwen AI 32B",
             status: "online",
             description: "API untuk mengakses model Qwen AI 32B yang serbaguna.",
-            endpoint: "/api/qwenai-32b?content="
+            endpoint: "/api/qwenai-32b?content=&apikey="
         },
         {
             method: "GET",
             title: "Txt2Img",
             status: "online",
             description: "API untuk membuat gambar dari AI dengan style yang banyak.",
-            endpoint: "/api/txt2img?prompt=&style="
+            endpoint: "/api/txt2img?prompt=&style=&apikey="
         }
     ],
     "Tools": [
@@ -112,21 +112,21 @@ const apiData = {
             title: "Screenshot Web",
             status: "online",
             description: "API untuk screenshot website dengan mudah.",
-            endpoint: "/api/ssweb?url="
+            endpoint: "/api/ssweb?url=&apikey="
         },
         {
             method: "GET",
             title: "Translate",
             status: "online",
             description: "API untuk translate bahasa apapun menjadi yang kamu inginkan.",
-            endpoint: "/api/translate?text=&to="
+            endpoint: "/api/translate?text=&to=&apikey="
         },
         {
             method: "GET",
             title: "Nulis",
             status: "online",
             description: "Membuat gambar buku beserta tulisan berdasarkan dari query text kamu.",
-            endpoint: "/api/nulis?text="
+            endpoint: "/api/nulis?text=&apikey="
         }
     ],
     "Fun": [
@@ -135,14 +135,14 @@ const apiData = {
             title: "Cek Khodam",
             status: "online",
             description: "Permainan seru yang menunjukkan khodam seseorang berdasarkan nama.",
-            endpoint: "/api/cekkhodam?nama="
+            endpoint: "/api/cekkhodam?nama=&apikey="
         },
         {
             method: "GET",
             title: "Tahu Kah Kamu?",
             status: "online",
             description: "Permainan seru yang menunjukkan fakta2 random yang mungkin belom kamu ketahui.",
-            endpoint: "/api/tahukahkamu"
+            endpoint: "/api/tahukahkamu?apikey="
         }
     ],
     "Sticker": [
@@ -151,14 +151,14 @@ const apiData = {
             title: "Brat Image",
             status: "online",
             description: "Mengubah text kamu menjadi gambar brat.",
-            endpoint: "/api/brat?text="
+            endpoint: "/api/brat?text=&apikey="
         },
         {
             method: "POST",
             title: "Quoted Chat",
             status: "offline",
             description: "Membuat gambar dengan desain quoted chat yang bisa kamu custom nama, color, foto profile, dan lainnya.",
-            endpoint: "/api/qc"
+            endpoint: "/api/qc?apikey="
         }
     ],
     "Berita": [
@@ -167,7 +167,7 @@ const apiData = {
             title: "Detik News",
             status: "online",
             description: "Mendapatkan informasi berita terbaru dari Detik News.",
-            endpoint: "/api/detiknews"
+            endpoint: "/api/detiknews?apikey="
         }
     ]      
 };
