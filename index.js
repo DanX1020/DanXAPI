@@ -134,21 +134,6 @@ routes.forEach(route => {
   app.use(`/api/${route}`, apiKeyAuth, require(`./api/${route}`));
 });
 
-// Admin endpoint to check usage (protected)
-app.get("/admin/usage", apiKeyAuth, (req, res) => {
-  const simplifiedKeys = apiKeys.map(key => ({
-    email: key.email,
-    usage: key.usage,
-    limit: key.limit,
-    remaining: key.limit - key.usage,
-    lastReset: key.lastReset
-  }));
-  
-  res.json({
-    status: true,
-    data: simplifiedKeys
-  });
-});
 
 // SSE updates
 function sendUpdateToClients() {
@@ -166,4 +151,4 @@ app.listen(port, '0.0.0.0', () => {
   console.log(`Server berjalan di port ${port}`);
 });
 
-module.exports = app;
+module.exports = app; 
