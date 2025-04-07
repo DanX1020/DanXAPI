@@ -34,7 +34,7 @@ app.use((req, res, next) => {
 
 // API Key authentication middleware
 const apiKeyAuth = async (req, res, next) => {
-  const providedKey = req.headers['x-api-key'] || req.query.apiKey;
+  const providedKey = req.headers['x-api-key'] || req.query.apikey;
   
   if (!providedKey) {
     return res.status(401).json({ 
