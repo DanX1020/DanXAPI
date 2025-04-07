@@ -34,7 +34,7 @@ app.use((req, res, next) => {
 
 // API Key authentication middleware
 const apiKeyAuth = async (req, res, next) => {
-  const providedKey = req.headers['x-api-key'] || req.query.apikey;
+  const providedKey = req.headers['x-api-key'] || req.query.apiKey;
   
   if (!providedKey) {
     return res.status(401).json({ 
@@ -123,6 +123,30 @@ app.get("/monitor", (req, res) => {
     clients = clients.filter(client => client.id !== clientId);
   });
 });
+
+// Add this with your other routes
+app.get('/api/check-key', (req, res) => {
+    const providedKey = req.query.apikey;
+    
+    if (!providedKey) {
+        return res.json({ valid: false });
+    }
+
+    const userKey = apiKeys.find(key => key.apikey === providedKey);
+    
+    if (!userKey) {
+        return res.json({ valid: false });
+    }
+
+    res.json({
+        valid: true,
+        email: userKey.email,
+        limit: userKey.limit,
+        usage: userKey.usage,
+        remaining: userKey.limit - userKey.usage
+    });
+});
+
 
 // API routes with API key protection
 const routes = ["ytdl", "twitterdl", "igdl", "fbdl", "ttdl", "githubstalk", 
